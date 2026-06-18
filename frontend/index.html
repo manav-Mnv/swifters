@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swift Coding Club Attendance</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="eyebrow">Swift Coding Club</div>
+      <h1>Venue-gated biometric check-in</h1>
+      <p class="muted">Location is verified first. Once you are inside the venue boundary, enrollment and face authentication become available.</p>
+      <div id="geoStatus" class="status">Waiting to request your location.</div>
+    </section>
+
+    <section class="split">
+      <div class="stack">
+        <div class="card">
+          <h2>Step 1: Confirm you are on-site</h2>
+          <p class="muted">Use your browser location. If you are outside the allowed radius, check-in stays blocked.</p>
+          <button id="requestLocationBtn">Request location</button>
+        </div>
+        <div id="checkinPanel" class="card hidden">
+          <h2>Step 2: Enrollment and face verification</h2>
+          <div class="grid-2">
+            <label>
+              Enrollment number
+              <input id="enrollmentInput" list="enrollmentList" placeholder="Select or type your enrollment">
+              <datalist id="enrollmentList"></datalist>
+            </label>
+            <div>
+              <button id="lookupBtn">Load member</button>
+            </div>
+          </div>
+          <div id="memberStatus" class="status hidden"></div>
+        </div>
+      </div>
+
+      <div class="stack">
+        <div class="card">
+          <h2>Camera</h2>
+          <video id="video" autoplay playsinline muted></video>
+          <canvas id="canvas"></canvas>
+          <div class="grid-2" style="margin-top:12px;">
+            <button id="startCameraBtn" class="secondary" disabled>Start camera</button>
+            <button id="verifyBtn" disabled>Verify and mark attendance</button>
+          </div>
+        </div>
+        <div class="card">
+          <h2>Member preview</h2>
+          <div id="memberCard" class="muted">Member details appear here after enrollment lookup.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="successOverlay" class="overlay">
+    <div class="overlay-card">
+      <div class="eyebrow">Check-in complete</div>
+      <h2 id="successName">Attendance marked</h2>
+      <p class="muted">The kiosk will reset for the next student.</p>
+    </div>
+  </div>
+
+  <script src="./config.js"></script>
+  <script src="./main.js"></script>
+</body>
+</html>

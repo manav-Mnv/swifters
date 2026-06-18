@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | Swift Coding Club Attendance</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="eyebrow">Admin panel</div>
+      <h1>Event setup, geo boundary, and live attendance</h1>
+      <p class="muted">Create the active event, import members, configure the venue radius, and manage attendance from one place.</p>
+      <div id="adminStatus" class="status">Log in to unlock admin actions.</div>
+    </section>
+
+    <section class="grid-2">
+      <div class="panel stack">
+        <div class="card">
+          <h2>Admin login</h2>
+          <label>Password<input id="passwordInput" type="password" placeholder="Admin password"></label>
+          <button id="loginBtn">Log in</button>
+        </div>
+
+        <div class="card">
+          <h2>Create event</h2>
+          <div class="grid-3">
+            <label>Event name<input id="eventName" placeholder="Swift Meetup #4"></label>
+            <label>Date<input id="eventDate" type="date"></label>
+            <label>Club name<input id="clubName" value="Swift Coding Club"></label>
+          </div>
+          <button id="createEventBtn">Create active event</button>
+        </div>
+
+        <div class="card">
+          <h2>Import members</h2>
+          <label>Excel file<input id="excelInput" type="file" accept=".xlsx"></label>
+          <button id="importBtn">Import Excel</button>
+          <div id="importSummary" class="muted"></div>
+        </div>
+
+        <div class="card">
+          <h2>Manual override</h2>
+          <div class="grid-2">
+            <label>Enrollment<input id="manualEnrollment" placeholder="21BECE30050"></label>
+            <label>Reason<textarea id="manualNote" rows="2" placeholder="Accessibility or admin-approved reason"></textarea></label>
+          </div>
+          <button id="manualMarkBtn">Mark present manually</button>
+        </div>
+      </div>
+
+      <div class="panel stack">
+        <div class="card">
+          <h2>Geo settings</h2>
+          <div class="grid-2">
+            <label>Center latitude<input id="centerLat" type="number" step="any"></label>
+            <label>Center longitude<input id="centerLng" type="number" step="any"></label>
+            <label>Radius metres<input id="radiusMetres" type="number" min="10" value="100"></label>
+            <label>Geo enforcement
+              <select id="geoEnabled">
+                <option value="1">Enabled</option>
+                <option value="0">Disabled</option>
+              </select>
+            </label>
+          </div>
+          <button id="saveGeoBtn">Save geo boundary</button>
+          <div id="map" style="height:320px;margin-top:12px;"></div>
+        </div>
+
+        <div class="card">
+          <h2>Members</h2>
+          <table>
+            <thead>
+              <tr><th>Enrollment</th><th>Name</th><th>Face</th></tr>
+            </thead>
+            <tbody id="membersTable"></tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h2>Face registration</h2>
+          <label>Enrollment<input id="faceEnrollment" placeholder="Select a member enrollment"></label>
+          <video id="faceVideo" autoplay playsinline muted></video>
+          <canvas id="faceCanvas"></canvas>
+          <div class="grid-2" style="margin-top:12px;">
+            <button id="startFaceCameraBtn" class="secondary">Start camera</button>
+            <button id="registerFaceBtn">Capture and save face</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Live attendance</h2>
+          <div id="attendanceBadge" class="badge">Present: 0 / 0</div>
+          <table>
+            <thead>
+              <tr><th>Name</th><th>Enrollment</th><th>Time</th><th>Method</th></tr>
+            </thead>
+            <tbody id="attendanceTable"></tbody>
+          </table>
+          <div class="grid-2" style="margin-top:12px;">
+            <button id="exportBtn">Export attendance</button>
+            <button id="resetBtn" class="secondary">Reset verification session</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="./config.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script src="./admin.js"></script>
+</body>
+</html>
