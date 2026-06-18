@@ -82,6 +82,7 @@ async function login() {
     body: JSON.stringify({ password: passwordInput.value })
   });
   setStatus("Admin logged in.", "success");
+  document.querySelectorAll('.admin-only').forEach(el => el.classList.remove('hidden'));
   await Promise.all([loadMembers(), loadAttendance(), loadGeo()]);
 }
 

@@ -24,7 +24,7 @@
           <button id="loginBtn">Log in</button>
         </div>
 
-        <div class="card">
+        <div class="card admin-only hidden">
           <h2>Create event</h2>
           <div class="grid-3">
             <label>Event name<input id="eventName" placeholder="Swift Meetup #4"></label>
@@ -34,14 +34,14 @@
           <button id="createEventBtn">Create active event</button>
         </div>
 
-        <div class="card">
+        <div class="card admin-only hidden">
           <h2>Import members</h2>
           <label>Excel file<input id="excelInput" type="file" accept=".xlsx"></label>
           <button id="importBtn">Import Excel</button>
           <div id="importSummary" class="muted"></div>
         </div>
 
-        <div class="card">
+        <div class="card admin-only hidden">
           <h2>Manual override</h2>
           <div class="grid-2">
             <label>Enrollment<input id="manualEnrollment" placeholder="21BECE30050"></label>
@@ -51,7 +51,7 @@
         </div>
       </div>
 
-      <div class="panel stack">
+      <div class="panel stack admin-only hidden">
         <div class="card">
           <h2>Geo settings</h2>
           <div class="grid-2">
