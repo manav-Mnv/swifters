@@ -2,6 +2,7 @@ const apiBase = window.APP_CONFIG.BACKEND_URL.replace(/\/$/, "");
 
 const adminStatus = document.getElementById("adminStatus");
 const passwordInput = document.getElementById("passwordInput");
+const togglePasswordBtn = document.getElementById("togglePasswordBtn");
 const loginBtn = document.getElementById("loginBtn");
 const createEventBtn = document.getElementById("createEventBtn");
 const importBtn = document.getElementById("importBtn");
@@ -236,6 +237,16 @@ async function registerFace() {
   setStatus("Face registered successfully.", "success");
   await loadMembers();
 }
+
+togglePasswordBtn.addEventListener("click", () => {
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    togglePasswordBtn.textContent = "Hide";
+  } else {
+    passwordInput.type = "password";
+    togglePasswordBtn.textContent = "Show";
+  }
+});
 
 loginBtn.addEventListener("click", () => login().catch((error) => setStatus(error.message, "error")));
 createEventBtn.addEventListener("click", () => createEvent().catch((error) => setStatus(error.message, "error")));

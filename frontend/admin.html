@@ -18,10 +18,15 @@
 
     <section class="grid-2">
       <div class="panel stack">
-        <div class="card">
+        <div class="card" id="loginCard">
           <h2>Admin login</h2>
-          <label>Password<input id="passwordInput" type="password" placeholder="Admin password"></label>
-          <button id="loginBtn">Log in</button>
+          <label>Password
+            <div class="password-wrapper">
+              <input id="passwordInput" type="password" placeholder="Admin password">
+              <button type="button" id="togglePasswordBtn" class="password-toggle">Show</button>
+            </div>
+          </label>
+          <button id="loginBtn" style="margin-top:16px;">Log in</button>
         </div>
 
         <div class="card admin-only hidden">
