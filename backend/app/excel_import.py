@@ -7,14 +7,14 @@ from openpyxl import load_workbook
 REQUIRED_HEADERS = {
     "enrollment number": "enrollment",
     "full name": "name",
-    "department": "department",
-    "course": "course",
-    "institute": "institute",
+    "department (eg. btech)": "department",
+    "course (eg. 3aiml1)": "course",
+    "institute (eg. piet)": "institute",
 }
 
 OPTIONAL_HEADERS = {
-    "email": "email",
-    "phone": "phone",
+    "pu email": "email",
+    "mobile number": "phone",
 }
 
 
