@@ -10,8 +10,8 @@
   <main class="page">
     <section class="hero">
       <div class="eyebrow">Swift Coding Club</div>
-      <h1>Venue-gated biometric check-in</h1>
-      <p class="muted">Location is verified first. Once you are inside the venue boundary, enrollment and face authentication become available.</p>
+      <h1>Biometric Check-in</h1>
+      <p class="muted" style="max-width: 600px; margin: 0 auto 16px;">Location is verified first. Once you are inside the venue boundary, enrollment and face authentication become available.</p>
       <div id="geoStatus" class="status">Waiting to request your location.</div>
     </section>
 
@@ -24,15 +24,13 @@
         </div>
         <div id="checkinPanel" class="card hidden">
           <h2>Step 2: Enrollment and face verification</h2>
-          <div class="grid-2">
+          <div class="grid-2" style="align-items: flex-end;">
             <label>
               Enrollment number
-              <input id="enrollmentInput" list="enrollmentList" placeholder="Select or type your enrollment">
+              <input id="enrollmentInput" list="enrollmentList" placeholder="Enter enrollment">
               <datalist id="enrollmentList"></datalist>
             </label>
-            <div>
-              <button id="lookupBtn">Load member</button>
-            </div>
+            <button id="lookupBtn">Load member</button>
           </div>
           <div id="memberStatus" class="status hidden"></div>
         </div>
@@ -58,8 +56,8 @@
 
   <div id="successOverlay" class="overlay">
     <div class="overlay-card">
-      <div class="eyebrow">Check-in complete</div>
-      <h2 id="successName">Attendance marked</h2>
+      <div class="eyebrow" style="color: var(--success);">Check-in complete</div>
+      <h2 id="successName" style="font-size: 1.8rem; margin-bottom: 8px;">Attendance marked</h2>
       <p class="muted">The kiosk will reset for the next student.</p>
     </div>
   </div>
