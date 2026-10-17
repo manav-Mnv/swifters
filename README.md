@@ -1,5 +1,7 @@
 # Club Attendance System
 
+![Status](https://img.shields.io/badge/status-production-2ea44f?style=flat-square) [![Live site](https://img.shields.io/badge/live-swifters.vercel.app-000000?style=flat-square)](https://swifters.vercel.app)
+
 Attendance system scaffold for Swift Coding Club with:
 
 - `frontend/`: static kiosk and admin pages for Vercel hosting
