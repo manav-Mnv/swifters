@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hmac
 import tempfile
 from functools import wraps
 from pathlib import Path
@@ -68,7 +69,8 @@ def create_app() -> Flask:
         if is_locked_out(client_ip):
             return jsonify({"error": "Too many failed attempts. Try again later."}), 429
         payload = request.get_json(silent=True) or {}
-        if payload.get("password") != Config.ADMIN_PASSWORD:
+        password = payload.get("password")
+        if not Config.ADMIN_PASSWORD or not isinstance(password, str) or not hmac.compare_digest(password, Config.ADMIN_PASSWORD):
             record_failed_login(client_ip)
             return jsonify({"error": "Invalid password"}), 401
         clear_failed_login(client_ip)
