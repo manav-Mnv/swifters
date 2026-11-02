@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import secrets
 from pathlib import Path
 
 
@@ -24,8 +25,8 @@ class Config:
     DATA_DIR = BASE_DIR / "data"
     DATABASE_PATH = DATA_DIR / "attendance.db"
     FACES_DIR = DATA_DIR / "registered_faces"
-    ADMIN_PASSWORD = "change-me"
-    SESSION_SECRET = "dev-secret"
+    ADMIN_PASSWORD: str | None = None
+    SESSION_SECRET = secrets.token_hex(32)
     ALLOWED_ORIGIN = "*"
     BACKEND_URL = "http://127.0.0.1:5000"
     DEFAULT_RADIUS_METRES = 100
@@ -39,8 +40,10 @@ class Config:
     def refresh(cls) -> None:
         cls.DATABASE_PATH = Path(os.environ.get("DATABASE_PATH", cls.DATA_DIR / "attendance.db"))
         cls.FACES_DIR = Path(os.environ.get("FACES_DIR", cls.DATA_DIR / "registered_faces"))
-        cls.ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "change-me")
-        cls.SESSION_SECRET = os.environ.get("SESSION_SECRET", "dev-secret")
+        # No defaults: admin login stays disabled until ADMIN_PASSWORD is set, and
+        # without SESSION_SECRET a random key is used (sessions reset on restart).
+        cls.ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD") or None
+        cls.SESSION_SECRET = os.environ.get("SESSION_SECRET") or secrets.token_hex(32)
         cls.ALLOWED_ORIGIN = os.environ.get("ALLOWED_ORIGIN", "*")
         cls.BACKEND_URL = os.environ.get("BACKEND_URL", "http://127.0.0.1:5000")
         cls.DEFAULT_RADIUS_METRES = int(os.environ.get("DEFAULT_RADIUS_METRES", "100"))

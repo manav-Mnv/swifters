@@ -2,11 +2,13 @@ from io import BytesIO
 
 import pytest
 
+from app import auth
 from app.server import create_app
 
 
 @pytest.fixture()
 def client(tmp_path, monkeypatch):
+    monkeypatch.setattr(auth, "FAILED_LOGINS", {})
     monkeypatch.setenv("DATABASE_PATH", str(tmp_path / "attendance.db"))
     monkeypatch.setenv("FACES_DIR", str(tmp_path / "faces"))
     monkeypatch.setenv("ADMIN_PASSWORD", "secret")
@@ -49,3 +51,20 @@ def test_public_members_available(client):
     response = client.get("/api/public-members")
     assert response.status_code == 200
     assert response.get_json()["members"] == []
+
+
+def test_login_disabled_without_admin_password(tmp_path, monkeypatch):
+    monkeypatch.setenv("DATABASE_PATH", str(tmp_path / "attendance.db"))
+    monkeypatch.setenv("FACES_DIR", str(tmp_path / "faces"))
+    monkeypatch.delenv("ADMIN_PASSWORD", raising=False)
+    monkeypatch.setattr(auth, "FAILED_LOGINS", {})
+    app = create_app()
+    app.config.update(TESTING=True)
+    with app.test_client() as client:
+        for guess in ("change-me", "", None):
+            assert client.post("/api/login", json={"password": guess}).status_code == 401
+
+
+def test_wrong_password_rejected(client):
+    assert client.post("/api/login", json={"password": "nope"}).status_code == 401
+    assert login(client).status_code == 200
